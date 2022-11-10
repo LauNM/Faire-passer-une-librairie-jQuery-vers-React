@@ -1,15 +1,25 @@
 import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import DatePicker from 'react-date-picker'
+import Dropdown from "../components/Dropdown";
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    console.log('saved')
-  } catch (error) {
-    console.log(error)
-  }
-}
+
 
 function CreateEmployee() {
+  const [dateOfBirth, setDateOfBirth] = useState(new Date());
+  const [startDate, setStartDate] = useState(new Date());
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      console.log('saved')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const jobs =  ['Sales', 'Marketing', 'Engineering', 'Human Resources', 'Legal'];
+
   return (
     <div>
       <div className="title">
@@ -26,10 +36,10 @@ function CreateEmployee() {
           <input type="text" id="last-name"/>
 
           <label htmlFor="date-of-birth">Date of Birth</label>
-          <input id="date-of-birth" type="text" />
+          <DatePicker id="date-of-birth" onChange={setDateOfBirth} value={dateOfBirth} maxDate={new Date()}/>
 
           <label htmlFor="start-date">Start Date</label>
-          <input id="start-date" type="text" />
+          <DatePicker id="start-date" onChange={setStartDate} value={startDate} />
 
           <fieldset className="address">
             <legend>Address</legend>
@@ -48,14 +58,8 @@ function CreateEmployee() {
           </fieldset>
 
           <label htmlFor="department">Department</label>
-          <select name="department" id="department">
-            <option>Sales</option>
-            <option>Marketing</option>
-            <option>Engineering</option>
-            <option>Human Resources</option>
-            <option>Legal</option>
-          </select>
-          <button>Save</button>
+          <Dropdown list={jobs} />
+          <button type="submit" className="submit-button">Save</button>
         </form>
       </div>
       <div id="confirmation" className="modal">Employee Created!</div>
