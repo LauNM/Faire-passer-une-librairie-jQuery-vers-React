@@ -36,10 +36,10 @@ function CreateEmployee() {
           <input type="text" id="last-name"/>
 
           <label htmlFor="date-of-birth">Date of Birth</label>
-          <DatePicker id="date-of-birth" onChange={setDateOfBirth} value={dateOfBirth} maxDate={new Date()}/>
+          <DatePicker id="date-of-birth" calendarIcon={null} onChange={setDateOfBirth} value={dateOfBirth} maxDate={new Date()}/>
 
           <label htmlFor="start-date">Start Date</label>
-          <DatePicker id="start-date" onChange={setStartDate} value={startDate} />
+          <DatePicker id="start-date" calendarIcon={null} onChange={setStartDate} value={startDate} />
 
           <fieldset className="address">
             <legend>Address</legend>
