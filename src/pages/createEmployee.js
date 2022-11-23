@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import React, { useState } from 'react';
-import DatePicker from 'react-date-picker'
+import DatePicker from 'react-date-picker';
 import Dropdown from "../components/Dropdown";
-
-
+import StatesList from '../assets/data/states.json';
+import JobsList from '../assets/data/jobs.json';
 
 function CreateEmployee() {
   const [dateOfBirth, setDateOfBirth] = useState(new Date());
@@ -18,17 +18,15 @@ function CreateEmployee() {
     }
   }
 
-  const jobs =  ['Sales', 'Marketing', 'Engineering', 'Human Resources', 'Legal'];
-
   return (
     <div>
       <div className="title">
         <h1>HRnet</h1>
       </div>
       <div className="container">
-        <Link to={"/employee-list"}>View Current Employees</Link>
+        <Link to={ "/employee-list" }>View Current Employees</Link>
         <h2>Create Employee</h2>
-        <form id={"create-employee"} onSubmit={ handleSubmit }>
+        <form id={ "create-employee" } onSubmit={ handleSubmit }>
           <label htmlFor="first-name">First Name</label>
           <input type="text" id="first-name"/>
 
@@ -36,10 +34,21 @@ function CreateEmployee() {
           <input type="text" id="last-name"/>
 
           <label htmlFor="date-of-birth">Date of Birth</label>
-          <DatePicker id="date-of-birth" calendarIcon={null} onChange={setDateOfBirth} value={dateOfBirth} maxDate={new Date()}/>
+          <DatePicker
+            id="date-of-birth"
+            calendarIcon={ null }
+            onChange={ setDateOfBirth }
+            value={ dateOfBirth }
+            maxDate={ new Date() }
+          />
 
           <label htmlFor="start-date">Start Date</label>
-          <DatePicker id="start-date" calendarIcon={null} onChange={setStartDate} value={startDate} />
+          <DatePicker
+            id="start-date"
+            calendarIcon={ null }
+            onChange={ setStartDate }
+            value={ startDate }
+          />
 
           <fieldset className="address">
             <legend>Address</legend>
@@ -51,14 +60,18 @@ function CreateEmployee() {
             <input id="city" type="text"/>
 
             <label htmlFor="state">State</label>
-            <select name="state" id="state"></select>
+            <Dropdown
+              list={ StatesList.map((state) => ({ value: state.abbreviation, label: state.name })) }
+              name="state"
+              id="state"
+            />
 
             <label htmlFor="zip-code">Zip Code</label>
             <input id="zip-code" type="number"/>
           </fieldset>
 
           <label htmlFor="department">Department</label>
-          <Dropdown list={jobs} />
+          <Dropdown list={ JobsList } name="department" id="department"/>
           <button type="submit" className="submit-button">Save</button>
         </form>
       </div>
