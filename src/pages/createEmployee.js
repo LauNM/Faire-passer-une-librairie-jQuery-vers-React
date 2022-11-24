@@ -6,6 +6,7 @@ import Select from "../components/Select";
 import StatesList from '../assets/data/states.json';
 import JobsList from '../assets/data/jobs.json';
 import Modal from "../components/Modal/Modal";
+import { Button } from '@mui/material';
 
 function CreateEmployee() {
   const { register, handleSubmit, control, reset, formState: { errors } } = useForm();
@@ -121,7 +122,7 @@ function CreateEmployee() {
               required: true
             })}
           />
-          <button type="submit" className="submit-button">Save</button>
+          <Button type={"submit"} className="submit-button" variant="contained" size="small" color="primary">Save</Button>
         </form>
       </div>
       <Modal
