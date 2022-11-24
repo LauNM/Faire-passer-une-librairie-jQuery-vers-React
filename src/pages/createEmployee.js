@@ -8,11 +8,12 @@ import JobsList from '../assets/data/jobs.json';
 import Modal from "../components/Modal/Modal";
 
 function CreateEmployee() {
-  const { register, handleSubmit, control, formState: { errors } } = useForm();
+  const { register, handleSubmit, control, reset, formState: { errors } } = useForm();
   const [displayModal, setDisplayModal] = useState(false);
   const onSubmit = data => {
     console.log(data)
     setDisplayModal(true)
+    reset();
   }
 
   return (
