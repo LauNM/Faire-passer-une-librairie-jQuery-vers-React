@@ -1,15 +1,18 @@
 import { Link } from "react-router-dom";
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm, Controller } from "react-hook-form";
 import DatePicker from 'react-date-picker';
 import Select from "../components/Select";
 import StatesList from '../assets/data/states.json';
 import JobsList from '../assets/data/jobs.json';
+import Modal from "../components/Modal/Modal";
 
 function CreateEmployee() {
   const { register, handleSubmit, control, formState: { errors } } = useForm();
+  const [displayModal, setDisplayModal] = useState(false);
   const onSubmit = data => {
-    console.log(data);
+    console.log(data)
+    setDisplayModal(true)
   }
 
   return (
@@ -120,7 +123,12 @@ function CreateEmployee() {
           <button type="submit" className="submit-button">Save</button>
         </form>
       </div>
-      <div id="confirmation" className="modal">Employee Created!</div>
+      <Modal
+        isOpen={displayModal}
+        closeModal={() => setDisplayModal(false)}
+        divider
+        content={ <p>Employee Created!</p>}
+      />
     </div>
   )
 }
