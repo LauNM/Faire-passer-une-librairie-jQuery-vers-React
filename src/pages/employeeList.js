@@ -1,20 +1,7 @@
 import { Link } from "react-router-dom";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 
-function EmployeeList() {
-  const rows = [
-    {
-      "city": "nantes",
-      "date-of-birth": "Tue Nov 07 1995 00:00:00 GMT+0100 (heure normale d’Europe centrale)",
-      "department": "sales",
-      "first-name": "Mia",
-      "last-name": "Garcia",
-      "start-date": "Fri Nov 25 2022 00:00:00 GMT+0100 (heure normale d’Europe centrale) ",
-      "state": "AL",
-      "street": "rue",
-      "zip-code": "44444"
-    }
-  ]
+function EmployeeList({list}) {
 
   return (
     <div id="employee-div" className="container">
@@ -35,7 +22,7 @@ function EmployeeList() {
             </TableRow>
           </TableHead>
           <TableBody>
-            { rows.map((row) => (
+            { list.map((row) => (
               <TableRow
                 key={ row["first-name"]}
                 sx={ { '&:last-child td, &:last-child th': { border: 0 } } }
@@ -56,6 +43,7 @@ function EmployeeList() {
           </TableBody>
         </Table>
       </TableContainer>
+      <Link to={"/"}>Home</Link>
     </div>
   )
 }

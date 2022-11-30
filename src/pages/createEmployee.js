@@ -8,11 +8,16 @@ import JobsList from '../assets/data/jobs.json';
 import Modal from "../components/Modal/Modal";
 import { Button } from '@mui/material';
 
-function CreateEmployee() {
+function CreateEmployee(props) {
   const { register, handleSubmit, control, reset, formState: { errors } } = useForm();
   const [displayModal, setDisplayModal] = useState(false);
   const onSubmit = data => {
-    console.log(data)
+   const formattedData = {
+     ...data,
+     "date-of-birth": data["date-of-birth"].toLocaleDateString(),
+     "start-date": data["start-date"].toLocaleDateString(),
+   }
+    props.addEmployee(formattedData)
     setDisplayModal(true)
     reset();
   }
