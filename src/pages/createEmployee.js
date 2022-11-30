@@ -1,23 +1,17 @@
 import { Link } from "react-router-dom";
 import React, { useState } from 'react';
-import { useForm, Controller } from "react-hook-form";
-import DatePicker from 'react-date-picker';
+import { useForm } from "react-hook-form";
 import Select from "../components/Select";
 import StatesList from '../assets/data/states.json';
 import JobsList from '../assets/data/jobs.json';
 import Modal from "../components/Modal/Modal";
-import { Button } from '@mui/material';
+import { Button, TextField, Stack } from '@mui/material';
 
 function CreateEmployee(props) {
-  const { register, handleSubmit, control, reset, formState: { errors } } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const [displayModal, setDisplayModal] = useState(false);
   const onSubmit = data => {
-   const formattedData = {
-     ...data,
-     "date-of-birth": data["date-of-birth"].toLocaleDateString(),
-     "start-date": data["start-date"].toLocaleDateString(),
-   }
-    props.addEmployee(formattedData)
+    props.addEmployee(data)
     setDisplayModal(true)
     reset();
   }
@@ -31,108 +25,119 @@ function CreateEmployee(props) {
         <Link to={ "/employee-list" }>View Current Employees</Link>
         <h2>Create Employee</h2>
         <form id={ "create-employee" } onSubmit={ handleSubmit(onSubmit) }>
-          <label htmlFor="first-name">First Name</label>
-          <input
-            type="text"
-            id="first-name"
-            className={errors["first-name"] ? "error" : ""}
-            {...register("first-name", {
-              required: true
-            })}
-          />
-
-          <label htmlFor="last-name">Last Name</label>
-          <input
-            type="text"
-            id="last-name"
-            className={errors["last-name"] ? "error" : ""}
-            {...register("last-name", {
-              required: true
-            })}
-          />
-
-          <label htmlFor="date-of-birth">Date of Birth</label>
-          <Controller
-            control={control}
-            name="date-of-birth"
-            rules={{ required: true }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <DatePicker
-                id="date-of-birth"
-                className={errors["date-of-birth"] ? "error" : ""}
-                calendarIcon={ null }
-                onChange={ onChange }
-                onBlur={onBlur}
-                value={ value }
-                maxDate={ new Date() }
-              />
-            )}
-          />
-
-          <label htmlFor="start-date">Start Date</label>
-          <Controller
-            control={control}
-            name="start-date"
-            rules={{ required: true }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <DatePicker
-                id="start-date"
-                className={errors["start-date"] ? "error" : ""}
-                calendarIcon={ null }
-                onChange={ onChange }
-                onBlur={onBlur}
-                value={ value }
-              />
-            )}
-          />
-
-          <fieldset className="address">
-            <legend>Address</legend>
-
-            <label htmlFor="street">Street</label>
-            <input id="street" type="text"  className={errors.street ? "error" : ""} {...register("street", {
-              required: true
-            })}/>
-
-            <label htmlFor="city">City</label>
-            <input id="city" type="text" className={errors.city ? "error" : ""} {...register("city", {
-              required: true
-            })}/>
-
-            <label htmlFor="state">State</label>
+          <Stack spacing={ 2 }>
+            <TextField
+              required
+              id="first-name"
+              label="First Name"
+              InputLabelProps={ {
+                shrink: true,
+              } }
+              { ...register("first-name", {
+                required: true
+              }) }
+            />
+            <TextField
+              required
+              id="last-name"
+              label="Last Name"
+              InputLabelProps={ {
+                shrink: true,
+              } }
+              { ...register("last-name", {
+                required: true
+              }) }
+            />
+            <TextField
+              required
+              id="date-of-birth"
+              label="Date of Birth"
+              type="date"
+              InputLabelProps={ {
+                shrink: true,
+              } }
+              { ...register("date-of-birth", {
+                required: true
+              }) }
+            />
+            <TextField
+              required
+              id="start-date"
+              label="Start Date"
+              type="date"
+              InputLabelProps={ {
+                shrink: true,
+              } }
+              { ...register("start-date", {
+                required: true
+              }) }
+            />
+            <fieldset className="address">
+              <legend>Address</legend>
+              <Stack spacing={ 2 }>
+                <TextField
+                  required
+                  id="street"
+                  label="Street"
+                  InputLabelProps={ {
+                    shrink: true,
+                  } }
+                  { ...register("street", {
+                    required: true
+                  }) }
+                />
+                <TextField
+                  required
+                  id="city"
+                  label="City"
+                  InputLabelProps={ {
+                    shrink: true,
+                  } }
+                  { ...register("city", {
+                    required: true
+                  }) }
+                />
+                <Select
+                  list={ StatesList.map((state) => ({ value: state.abbreviation, label: state.name })) }
+                  name="state"
+                  { ...register("state", {
+                    required: true
+                  }) }
+                />
+                <TextField
+                  required
+                  id="zip-code"
+                  label="Zip Code"
+                  type="number"
+                  InputLabelProps={ {
+                    shrink: true,
+                  } }
+                  { ...register("zip-code", {
+                    required: true
+                  }) }
+                />
+              </Stack>
+            </fieldset>
             <Select
-              list={ StatesList.map((state) => ({ value: state.abbreviation, label: state.name })) }
-              name="state"
-              {...register("state", {
+              list={ JobsList }
+              name="department"
+              { ...register("department", {
                 required: true
-              })}
+              }) }
             />
-
-            <label htmlFor="zip-code">Zip Code</label>
-            <input
-              id="zip-code"
-              type="number"
-              className={errors["zip-code"] ? "error" : ""}
-              {...register("zip-code", {
-                required: true
-              })}
-            />
-          </fieldset>
-
-          <label htmlFor="department">Department</label>
-          <Select
-            list={ JobsList }
-            name="department"
-            {...register("department", {
-              required: true
-            })}
-          />
-          <Button type={"submit"} className="submit-button" variant="contained" size="small" color="primary">Save</Button>
+            <Button
+              type={ "submit" }
+              className="submit-button"
+              variant="contained"
+              size="small"
+              color="primary"
+            >Save</Button>
+          </Stack>
         </form>
       </div>
       <Modal
-        isOpen={displayModal}
-        closeModal={() => setDisplayModal(false)}
+        isOpen={ displayModal }
+        closeModal={ () => setDisplayModal(false) }
         divider
       >
         <p>Employee Created!</p>
