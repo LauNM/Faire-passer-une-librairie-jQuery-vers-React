@@ -129,8 +129,9 @@ function CreateEmployee() {
         isOpen={displayModal}
         closeModal={() => setDisplayModal(false)}
         divider
-        content={ <p>Employee Created!</p>}
-      />
+      >
+        <p>Employee Created!</p>
+      </Modal>
     </div>
   )
 }
