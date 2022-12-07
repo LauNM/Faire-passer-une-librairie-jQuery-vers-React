@@ -7,10 +7,14 @@ import { useState } from "react";
 
 function App() {
   const [employeeList, setEmployeeList] = useState([])
+  const addEmployee = (data) => {
+    setEmployeeList([...employeeList , data])
+    localStorage.setItem("EmployeeList", JSON.stringify([...employeeList , data]));
+  }
   return (
     <div>
       <Routes>
-        <Route path="/" element={ <CreateEmployee addEmployee={(data) => setEmployeeList([...employeeList , data])}/> }/>
+        <Route path="/" element={ <CreateEmployee addEmployee={addEmployee}/> }/>
         <Route path="/employee-list" element={ <EmployeeList list={employeeList}/> }/>
         <Route path="*" element={ <Error /> } />
       </Routes>
