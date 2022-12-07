@@ -8,7 +8,7 @@ import Modal from "../components/Modal/Modal";
 import { Button, TextField, Stack } from '@mui/material';
 
 function CreateEmployee(props) {
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit,formState: { errors }, reset } = useForm();
   const [displayModal, setDisplayModal] = useState(false);
   const onSubmit = data => {
     props.addEmployee(data)
@@ -27,7 +27,6 @@ function CreateEmployee(props) {
         <form id={ "create-employee" } onSubmit={ handleSubmit(onSubmit) }>
           <Stack spacing={ 2 }>
             <TextField
-              required
               id="first-name"
               label="First Name"
               InputLabelProps={ {
@@ -36,9 +35,10 @@ function CreateEmployee(props) {
               { ...register("first-name", {
                 required: true
               }) }
+              error={!!errors["first-name"]}
+              helperText={!!errors["first-name"] ? "First name is required" : ""}
             />
             <TextField
-              required
               id="last-name"
               label="Last Name"
               InputLabelProps={ {
@@ -47,9 +47,10 @@ function CreateEmployee(props) {
               { ...register("last-name", {
                 required: true
               }) }
+              error={!!errors["last-name"]}
+              helperText={!!errors["last-name"] ? "Last name is required" : ""}
             />
             <TextField
-              required
               id="date-of-birth"
               label="Date of Birth"
               type="date"
@@ -59,9 +60,10 @@ function CreateEmployee(props) {
               { ...register("date-of-birth", {
                 required: true
               }) }
+              error={!!errors["date-of-birth"]}
+              helperText={!!errors["date-of-birth"] ? "Date of Birth is required" : ""}
             />
             <TextField
-              required
               id="start-date"
               label="Start Date"
               type="date"
@@ -71,12 +73,13 @@ function CreateEmployee(props) {
               { ...register("start-date", {
                 required: true
               }) }
+              error={!!errors["start-date"]}
+              helperText={!!errors["start-date"] ? "Start Date is required" : ""}
             />
             <fieldset className="address">
               <legend>Address</legend>
               <Stack spacing={ 2 }>
                 <TextField
-                  required
                   id="street"
                   label="Street"
                   InputLabelProps={ {
@@ -85,9 +88,10 @@ function CreateEmployee(props) {
                   { ...register("street", {
                     required: true
                   }) }
+                  error={!!errors["street"]}
+                  helperText={!!errors["street"] ? "Street is required" : ""}
                 />
                 <TextField
-                  required
                   id="city"
                   label="City"
                   InputLabelProps={ {
@@ -96,16 +100,17 @@ function CreateEmployee(props) {
                   { ...register("city", {
                     required: true
                   }) }
+                  error={!!errors["city"]}
+                  helperText={!!errors["city"] ? "City is required" : ""}
                 />
                 <Select
                   list={ StatesList.map((state) => ({ value: state.abbreviation, label: state.name })) }
                   name="state"
-                  { ...register("state", {
+                  inputProps={{ ...register("state", {
                     required: true
-                  }) }
+                  }) }}
                 />
                 <TextField
-                  required
                   id="zip-code"
                   label="Zip Code"
                   type="number"
@@ -115,15 +120,17 @@ function CreateEmployee(props) {
                   { ...register("zip-code", {
                     required: true
                   }) }
+                  error={!!errors["zip-code"]}
+                  helperText={!!errors["zip-code"] ? "Zip Code is required" : ""}
                 />
               </Stack>
             </fieldset>
             <Select
               list={ JobsList }
               name="department"
-              { ...register("department", {
+              inputProps={{ ...register("department", {
                 required: true
-              }) }
+              }) }}
             />
             <Button
               type={ "submit" }
