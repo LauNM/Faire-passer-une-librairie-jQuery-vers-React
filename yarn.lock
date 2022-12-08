@@ -1670,7 +1670,14 @@
   "resolved" "https://registry.npmjs.org/@mui/core-downloads-tracker/-/core-downloads-tracker-5.10.15.tgz"
   "version" "5.10.15"
 
-"@mui/material@^5.10.15":
+"@mui/icons-material@^5.10.16":
+  "integrity" "sha512-jjCc0IF6iyLiucQCu5igg3fOscSqbbvRCmyRxXgzOcLR56B0sg2L8o+ZfJ0dAg59+wvgtXaxvjze/mJg0B4iWA=="
+  "resolved" "https://registry.npmjs.org/@mui/icons-material/-/icons-material-5.10.16.tgz"
+  "version" "5.10.16"
+  dependencies:
+    "@babel/runtime" "^7.20.1"
+
+"@mui/material@^5.0.0", "@mui/material@^5.10.15":
   "integrity" "sha512-OqoHfUtVMppFHgk2M95j+pR8MWfLKhzSdz4aKEfIpFrHIHbYang+oY7Iy/exX+vqpZSEGHgHQ0cGX0hGTGx9cg=="
   "resolved" "https://registry.npmjs.org/@mui/material/-/material-5.10.15.tgz"
   "version" "5.10.15"
@@ -1726,10 +1733,10 @@
   "resolved" "https://registry.npmjs.org/@mui/types/-/types-7.2.1.tgz"
   "version" "7.2.1"
 
-"@mui/utils@^5.10.15":
-  "integrity" "sha512-6AW4MLBUijJi31hxx+6utTJM2q/4hbO+QiMdtwM+f4Iy+BfFnh/elhb08apxNYLfuugPnXXpkDmzEjg+8uDU9g=="
-  "resolved" "https://registry.npmjs.org/@mui/utils/-/utils-5.10.15.tgz"
-  "version" "5.10.15"
+"@mui/utils@^5.10.15", "@mui/utils@^5.10.16":
+  "integrity" "sha512-3MB/SGsgiiu9Z55CFmAfiONUoR7AAue/H4F6w3mc2LnhFQCsoVvXhioDPcsiRpUMIQr34jDPzGXdCuqWooPCXQ=="
+  "resolved" "https://registry.npmjs.org/@mui/utils/-/utils-5.10.16.tgz"
+  "version" "5.10.16"
   dependencies:
     "@babel/runtime" "^7.20.1"
     "@types/prop-types" "^15.7.5"
