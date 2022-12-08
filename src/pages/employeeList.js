@@ -6,6 +6,7 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 import { visuallyHidden } from '@mui/utils';
 import { Link } from "react-router-dom";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import JobsList from '../assets/data/jobs.json';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -62,9 +63,7 @@ const headCells = [
   },
 ];
 
-function EnhancedTableHead(props) {
-  const { order, orderBy, onRequestSort } =
-    props;
+function TableHeader({ order, orderBy, onRequestSort }) {
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -72,31 +71,31 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        {headCells.map((headCell) => (
+        { headCells.map((headCell) => (
           <TableCell
-            key={headCell.id}
-            sortDirection={orderBy === headCell.id ? order : false}
+            key={ headCell.id }
+            sortDirection={ orderBy === headCell.id ? order : false }
           >
             <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
-              onClick={createSortHandler(headCell.id)}
+              active={ orderBy === headCell.id }
+              direction={ orderBy === headCell.id ? order : 'asc' }
+              onClick={ createSortHandler(headCell.id) }
             >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+              { headCell.label }
+              { orderBy === headCell.id ? (
+                <Box component="span" sx={ visuallyHidden }>
+                  { order === 'desc' ? 'sorted descending' : 'sorted ascending' }
                 </Box>
-              ) : null}
+              ) : null }
             </TableSortLabel>
           </TableCell>
-        ))}
+        )) }
       </TableRow>
     </TableHead>
   );
 }
 
-EnhancedTableHead.propTypes = {
+TableHeader.propTypes = {
   numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
   onSelectAllClick: PropTypes.func.isRequired,
@@ -105,7 +104,7 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-function EmployeeList({list}) {
+function EmployeeList({ list }) {
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
   const [selected, setSelected] = React.useState([]);
@@ -141,35 +140,35 @@ function EmployeeList({list}) {
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - list.length) : 0;
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <div id="employee-div" className="container">
       <h1>Current Employees</h1>
-      <Paper sx={{ width: '100%', mb: 2 }}>
+      <Paper sx={ { width: '100%', mb: 2 } }>
         <TableContainer>
           <Table
-            sx={{ minWidth: 750 }}
+            sx={ { minWidth: 750 } }
             aria-labelledby="tableTitle"
           >
-            <EnhancedTableHead
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={list.length}
+            <TableHeader
+              numSelected={ selected.length }
+              order={ order }
+              orderBy={ orderBy }
+              onSelectAllClick={ handleSelectAllClick }
+              onRequestSort={ handleRequestSort }
+              rowCount={ list.length }
             />
             <TableBody>
-              {list.sort(getComparator(order, orderBy))
+              { list.sort(getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => {
                   return (
                     <TableRow
-                      key={row['first-name']}
+                      key={ row['first-name'] }
                       hover
                     >
                       <TableCell>{ row["first-name"] }</TableCell>
                       <TableCell>{ row["last-name"] }</TableCell>
                       <TableCell>{ row["start-date"] }</TableCell>
-                      <TableCell>{ row.department}</TableCell>
+                      <TableCell>{ JobsList.find((el) => el.value === row.department).label }</TableCell>
                       <TableCell>{ row["date-of-birth"] }</TableCell>
                       <TableCell>{ row.street }</TableCell>
                       <TableCell>{ row.city }</TableCell>
@@ -177,27 +176,27 @@ function EmployeeList({list}) {
                       <TableCell>{ row["zip-code"] }</TableCell>
                     </TableRow>
                   );
-                })}
-              {emptyRows > 0 && (
+                }) }
+              { emptyRows > 0 && (
                 <TableRow>
-                  <TableCell colSpan={9} />
+                  <TableCell colSpan={ 9 }/>
                 </TableRow>
-              )}
+              ) }
             </TableBody>
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
+          rowsPerPageOptions={ [5, 10, 25] }
           component="div"
-          count={list.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
+          count={ list.length }
+          rowsPerPage={ rowsPerPage }
+          page={ page }
+          onPageChange={ handleChangePage }
+          onRowsPerPageChange={ handleChangeRowsPerPage }
         />
       </Paper>
-      <Link to={"/"}>Home</Link>
-    </Box>
+      <Link to={ "/" }>Home</Link>
+    </div>
   );
 }
 
