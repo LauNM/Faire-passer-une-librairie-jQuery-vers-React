@@ -7,6 +7,9 @@ import JobsList from '../assets/data/jobs.json';
 import Modal from "../components/Modal/Modal";
 import { Button, TextField, Stack } from '@mui/material';
 
+const formatText = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+}
 function CreateEmployee(props) {
   const { register, handleSubmit,formState: { errors }, reset } = useForm();
   const [displayModal, setDisplayModal] = useState(false);
@@ -33,6 +36,7 @@ function CreateEmployee(props) {
                 shrink: true,
               } }
               { ...register("first-name", {
+                setValueAs: v => formatText(v),
                 required: true
               }) }
               error={!!errors["first-name"]}
@@ -45,6 +49,7 @@ function CreateEmployee(props) {
                 shrink: true,
               } }
               { ...register("last-name", {
+                setValueAs: v => formatText(v),
                 required: true
               }) }
               error={!!errors["last-name"]}
@@ -86,6 +91,7 @@ function CreateEmployee(props) {
                     shrink: true,
                   } }
                   { ...register("street", {
+                    setValueAs: v => formatText(v),
                     required: true
                   }) }
                   error={!!errors["street"]}
@@ -98,6 +104,7 @@ function CreateEmployee(props) {
                     shrink: true,
                   } }
                   { ...register("city", {
+                    setValueAs: v => formatText(v),
                     required: true
                   }) }
                   error={!!errors["city"]}
