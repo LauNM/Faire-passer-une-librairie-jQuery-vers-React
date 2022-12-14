@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import TablePagination from '@mui/material/TablePagination';
@@ -110,6 +110,7 @@ function EmployeeList({ list }) {
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [filteredData, setFilteredData] = useState([]);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -119,7 +120,7 @@ function EmployeeList({ list }) {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = list.map((n) => n.name);
+      const newSelected = filteredData.map((n) => n.name);
       setSelected(newSelected);
       return;
     }
@@ -136,13 +137,31 @@ function EmployeeList({ list }) {
   };
 
   // Avoid a layout jump when reaching the last page with empty list.
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - list.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - filteredData.length) : 0;
+
+  const handleChange = (e) => {
+    setFilteredData(list.filter((el) =>
+      el['first-name'].toLowerCase().includes(e.target.value.toLowerCase())
+      || el['last-name'].toLowerCase().includes(e.target.value.toLowerCase())
+      || el['start-date'].includes(e.target.value)
+      || el['department'].toLowerCase().includes(e.target.value.toLowerCase())
+      || el['date-of-birth'].includes(e.target.value)
+      || el['street'].toLowerCase().includes(e.target.value.toLowerCase())
+      || el['city'].toLowerCase().includes(e.target.value.toLowerCase())
+      || el['state'].toLowerCase().includes(e.target.value.toLowerCase())
+      || el['zip-code'].includes(e.target.value)
+    ))
+  }
+
+// nothing in filter input ?  list : filteredData
 
   return (
     <div id="employee-div" className="container">
       <h1>Current Employees</h1>
       <Paper sx={ { width: '100%', mb: 2 } }>
+        <form>
+          <input type="search"  onChange={handleChange}/>
+        </form>
         <TableContainer>
           <Table
             sx={ { minWidth: 750 } }
@@ -154,10 +173,10 @@ function EmployeeList({ list }) {
               orderBy={ orderBy }
               onSelectAllClick={ handleSelectAllClick }
               onRequestSort={ handleRequestSort }
-              rowCount={ list.length }
+              rowCount={ filteredData.length }
             />
             <TableBody>
-              { list.sort(getComparator(order, orderBy))
+              { filteredData.sort(getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => {
                   return (
@@ -188,7 +207,7 @@ function EmployeeList({ list }) {
         <TablePagination
           rowsPerPageOptions={ [5, 10, 25] }
           component="div"
-          count={ list.length }
+          count={ filteredData.length }
           rowsPerPage={ rowsPerPage }
           page={ page }
           onPageChange={ handleChangePage }
