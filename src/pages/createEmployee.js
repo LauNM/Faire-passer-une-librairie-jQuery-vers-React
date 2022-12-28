@@ -4,8 +4,8 @@ import { useForm } from "react-hook-form";
 import Select from "../components/Select";
 import StatesList from '../assets/data/states.json';
 import JobsList from '../assets/data/jobs.json';
-import Modal from "../components/Modal/Modal";
 import { Button, TextField, Stack } from '@mui/material';
+import { Modal } from "react-modal-oc-lb"
 
 const formatText = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
