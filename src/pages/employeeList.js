@@ -54,7 +54,7 @@ const columns = [
 function EmployeeList({ list }) {
   const [pageSize, setPageSize] = React.useState(5);
 
-    list.map((el, index) => {
+    list.forEach((el, index) => {
       el.id = index;
     })
 
