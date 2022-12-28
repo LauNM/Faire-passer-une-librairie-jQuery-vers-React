@@ -54,10 +54,6 @@ const columns = [
 function EmployeeList({ list }) {
   const [pageSize, setPageSize] = React.useState(5);
 
-    list.forEach((el, index) => {
-      el.id = index;
-    })
-
   return (
     <div id="employee-div" className="container" >
       <h1>Current Employees</h1>

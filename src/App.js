@@ -9,6 +9,7 @@ import JobsList from "./assets/data/jobs.json";
 function App() {
   const [employeeList, setEmployeeList] = useState([])
   const addEmployee = (data) => {
+    data.id = crypto.randomUUID();
     data.department = JobsList.find((job) => job.value === data.department).label;
     setEmployeeList([...employeeList , data])
     localStorage.setItem("EmployeeList", JSON.stringify([...employeeList , data]));
