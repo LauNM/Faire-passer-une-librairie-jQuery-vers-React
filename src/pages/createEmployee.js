@@ -25,7 +25,7 @@ function CreateEmployee(props) {
         <h1>HRnet</h1>
       </div>
       <div className="container">
-        <Link class="link" to={ "/employee-list" }>View Current Employees</Link>
+        <Link className="link" to={ "/employee-list" }>View Current Employees</Link>
         <h2>Create Employee</h2>
         <form id={ "create-employee" } onSubmit={ handleSubmit(onSubmit) }>
           <Stack spacing={ 2 }>

@@ -77,7 +77,7 @@ function EmployeeList({ list }) {
           }}
           disableColumnMenu />
       </Box>
-      <Link class="link" to={ "/" }>Home</Link>
+      <Link className="link" to={ "/" }>Home</Link>
     </div>
   );
 }
