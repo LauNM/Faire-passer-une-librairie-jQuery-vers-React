@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import { v4 as uuidv4 } from 'uuid';
 
 import Error from './pages/error';
 import EmployeeList from './pages/employeeList';
@@ -9,7 +10,7 @@ import JobsList from "./assets/data/jobs.json";
 function App() {
   const [employeeList, setEmployeeList] = useState([])
   const addEmployee = (data) => {
-    data.id = crypto.randomUUID();
+    data.id = uuidv4();
     data.department = JobsList.find((job) => job.value === data.department).label;
     setEmployeeList([...employeeList , data])
     localStorage.setItem("EmployeeList", JSON.stringify([...employeeList , data]));
