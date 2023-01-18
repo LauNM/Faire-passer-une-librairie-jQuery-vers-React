@@ -11,8 +11,9 @@ const formatText = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 }
 function CreateEmployee(props) {
-  const { register, handleSubmit,formState: { errors }, reset } = useForm();
+  const { register, handleSubmit,formState: { errors }, reset, resetField } = useForm();
   const [displayModal, setDisplayModal] = useState(false);
+  const stateList = StatesList.map((state) => ({ value: state.abbreviation, label: state.name }));
   const onSubmit = data => {
     props.addEmployee(data)
     setDisplayModal(true)
@@ -111,7 +112,7 @@ function CreateEmployee(props) {
                   helperText={!!errors["city"] ? "City is required" : ""}
                 />
                 <Select
-                  list={ StatesList.map((state) => ({ value: state.abbreviation, label: state.name })) }
+                  list={ stateList }
                   name="state"
                   inputProps={{ ...register("state", {
                     required: true

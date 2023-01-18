@@ -57,7 +57,7 @@ function EmployeeList({ list }) {
   return (
     <div id="employee-div" className="container" >
       <h1>Current Employees</h1>
-      <Box sx={{ height: 400, width: '100%' }}>
+      <Box sx={{ height: 450, width: '100%' }}>
         <DataGrid
           rows={list}
           columns={columns}
