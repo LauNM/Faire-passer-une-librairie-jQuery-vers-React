@@ -53,11 +53,14 @@ const columns = [
 
 function EmployeeList({ list }) {
   const [pageSize, setPageSize] = React.useState(5);
+  const columnHeight = 52;
+  const gridTitlesHeight = 160;
+  const boxHeight = (columnHeight * pageSize) + gridTitlesHeight;
 
   return (
     <div id="employee-div" className="container" >
       <h1>Current Employees</h1>
-      <Box sx={{ height: 450, width: '100%' }}>
+      <Box sx={{ height: boxHeight, width: '100%', maxHeight: 700 }}>
         <DataGrid
           rows={list}
           columns={columns}
