@@ -11,13 +11,27 @@ const formatText = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 }
 function CreateEmployee(props) {
-  const { register, handleSubmit,formState: { errors }, reset, resetField } = useForm();
-  const [displayModal, setDisplayModal] = useState(false);
+  const { register, handleSubmit,formState: { errors }, reset } = useForm();
+  const [ displayModal, setDisplayModal ] = useState(false);
   const stateList = StatesList.map((state) => ({ value: state.abbreviation, label: state.name }));
+  const [ stateQuestionValue, setStateQuestionValue ] = useState(stateList[0].value);
+  const [ jobQuestionValue, setJobQuestionValue ] = useState(JobsList[0].value);
+
   const onSubmit = data => {
     props.addEmployee(data)
     setDisplayModal(true)
+    setStateQuestionValue(stateList[0].value)
+    setJobQuestionValue(JobsList[0].value)
     reset();
+  }
+
+  const selectQuestions = {
+    state: "state",
+    department: "department",
+  }
+  const setValue = (data, name) => {
+    if (name === selectQuestions.state) { setStateQuestionValue(data) }
+    if (name === selectQuestions.department) { setJobQuestionValue(data) }
   }
 
   return (
@@ -113,7 +127,9 @@ function CreateEmployee(props) {
                 />
                 <Select
                   list={ stateList }
-                  name="state"
+                  name={ selectQuestions.state }
+                  selectedValue={ stateQuestionValue }
+                  setValue={ setValue }
                   inputProps={{ ...register("state", {
                     required: true
                   }) }}
@@ -135,7 +151,9 @@ function CreateEmployee(props) {
             </fieldset>
             <Select
               list={ JobsList }
-              name="department"
+              name={ selectQuestions.department }
+              selectedValue={ jobQuestionValue }
+              setValue={ setValue }
               inputProps={{ ...register("department", {
                 required: true
               }) }}
