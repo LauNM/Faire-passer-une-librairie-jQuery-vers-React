@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import Select from "../components/Select";
-import StatesList from '../assets/data/states.json';
-import JobsList from '../assets/data/jobs.json';
+import StatesData from '../assets/data/states.json';
+import JobsData from '../assets/data/jobs.json';
 import { Button, TextField, Stack } from '@mui/material';
 import { Modal } from "react-modal-oc-lb"
 
@@ -13,15 +13,15 @@ const formatText = (string) => {
 function CreateEmployee(props) {
   const { register, handleSubmit,formState: { errors }, reset } = useForm();
   const [ displayModal, setDisplayModal ] = useState(false);
-  const stateList = StatesList.map((state) => ({ value: state.abbreviation, label: state.name }));
-  const [ stateQuestionValue, setStateQuestionValue ] = useState(stateList[0].value);
-  const [ jobQuestionValue, setJobQuestionValue ] = useState(JobsList[0].value);
+  const statesList = StatesData.map((state) => ({ value: state.abbreviation, label: state.name }));
+  const [ stateQuestionValue, setStateQuestionValue ] = useState(statesList[0].value);
+  const [ jobQuestionValue, setJobQuestionValue ] = useState(JobsData[0].value);
 
   const onSubmit = data => {
     props.addEmployee(data)
     setDisplayModal(true)
-    setStateQuestionValue(stateList[0].value)
-    setJobQuestionValue(JobsList[0].value)
+    setStateQuestionValue(statesList[0].value)
+    setJobQuestionValue(JobsData[0].value)
     reset();
   }
 
@@ -126,7 +126,7 @@ function CreateEmployee(props) {
                   helperText={!!errors["city"] ? "City is required" : ""}
                 />
                 <Select
-                  list={ stateList }
+                  list={ statesList }
                   name={ selectQuestions.state }
                   selectedValue={ stateQuestionValue }
                   setValue={ setValue }
@@ -150,7 +150,7 @@ function CreateEmployee(props) {
               </Stack>
             </fieldset>
             <Select
-              list={ JobsList }
+              list={ JobsData }
               name={ selectQuestions.department }
               selectedValue={ jobQuestionValue }
               setValue={ setValue }

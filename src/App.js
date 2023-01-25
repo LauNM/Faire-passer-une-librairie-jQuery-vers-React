@@ -5,13 +5,13 @@ import Error from './pages/error';
 import EmployeeList from './pages/employeeList';
 import CreateEmployee from './pages/createEmployee';
 import { useState, useEffect } from "react";
-import JobsList from "./assets/data/jobs.json";
+import JobsData from "./assets/data/jobs.json";
 
 function App() {
   const [employeeList, setEmployeeList] = useState([])
   const addEmployee = (data) => {
     data.id = uuidv4();
-    data.department = JobsList.find((job) => job.value === data.department).label;
+    data.department = JobsData.find((job) => job.value === data.department).label;
     setEmployeeList([...employeeList , data])
     localStorage.setItem("EmployeeList", JSON.stringify([...employeeList , data]));
   }
