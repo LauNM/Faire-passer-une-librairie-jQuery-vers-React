@@ -171,7 +171,6 @@ function CreateEmployee(props) {
       <Modal
         isOpen={ displayModal }
         closeModal={ () => setDisplayModal(false) }
-        divider
       >
         <p>Employee Created!</p>
       </Modal>
