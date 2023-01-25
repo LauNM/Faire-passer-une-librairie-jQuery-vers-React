@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const data = require('../fixtures/employeeList.json')
 
 describe('Employee List Page with no data', () => {

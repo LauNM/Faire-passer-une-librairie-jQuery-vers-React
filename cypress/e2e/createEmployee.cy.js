@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 describe('Create employee Page', () => {
   beforeEach(() => {
     cy.visit('/');
